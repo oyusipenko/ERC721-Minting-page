@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useSidebar } from "@/src/context";
 
 export default function Header() {
+  const { toggleSidebar } = useSidebar();
+
   return (
     <header className="w-full text-white p-4 px-20">
       <nav className="container mx-auto flex justify-between">
@@ -26,6 +29,7 @@ export default function Header() {
               alt="Wallet icon"
               width="28"
               height="28"
+              onClick={toggleSidebar}
             />
           </li>
         </ul>
