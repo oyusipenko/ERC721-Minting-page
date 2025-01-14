@@ -1,47 +1,56 @@
 "use client";
 
+import { useFormik } from "formik";
+import { validationSchema } from "@/src/schemas";
+import { UploadField, TextField } from "@/src/components";
+
+export interface MintFormValues {
+  title: string;
+  description: string;
+  image: File | null;
+}
+
 export default function MintForm() {
+  const formik = useFormik<MintFormValues>({
+    initialValues: {
+      title: "",
+      description: "",
+      image: null as File | null,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Formik Values:", values);
+    },
+  });
+
+  const { handleSubmit, values } = formik;
+
   return (
-    <form className="mt-8 w-full max-w-md space-y-4">
-      <label
-        htmlFor="image-upload"
-        className="flex flex-col items-center justify-center
-                       border-2 border-blue-500 rounded-lg
-                       py-10 px-4 cursor-pointer
-                       hover:border-blue-600 transition-colors
-                       text-center"
-      >
-        <span className="text-gray-300 text-sm mb-1">⬆ Upload Image</span>
-        <span className="text-gray-500 text-xs">format supported</span>
-        <input
-          id="image-upload"
-          type="file"
-          accept="image/*"
-          className="hidden"
-        />
-      </label>
-
-      <input
-        type="text"
-        placeholder="NFT Title"
-        className="w-full p-3
-                       border-2 border-gray-700 bg-gray-800
-                       rounded-md text-white
-                       focus:outline-none focus:border-blue-500"
+    <form
+      onSubmit={handleSubmit}
+      className="mt-8 w-full max-w-md space-y-4"
+      noValidate
+    >
+      <UploadField<MintFormValues> name="image" formik={formik} />
+      <TextField<MintFormValues>
+        name="title"
+        label="NFT Title"
+        placeholder="Enter NFT Title"
+        formik={formik}
       />
-
-      <textarea
-        placeholder="Description"
-        rows={4}
-        className="w-full p-3
-                       border-2 border-gray-700 bg-gray-800
-                       rounded-md text-white
-                       focus:outline-none focus:border-blue-500"
+      <TextField<MintFormValues>
+        name="description"
+        label="Description"
+        placeholder="Write description..."
+        formik={formik}
+        isTextarea
       />
-
       <div className="flex justify-between space-x-2">
         <button
           type="button"
+          onClick={() => {
+            console.log("Mint without listing clicked", values);
+          }}
           className="flex-1 p-3
                          bg-gray-700 text-white
                          rounded-md hover:bg-gray-600
