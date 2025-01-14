@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.64.1",
+    "formik": "^2.4.6",
     "next": "15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "viem": "^2.22.8",
-    "wagmi": "^2.14.7"
+    "wagmi": "^2.14.7",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
