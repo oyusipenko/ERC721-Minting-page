@@ -1,11 +1,12 @@
 "use client";
 
+import "./globals.css";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Header, Footer } from "@/src/";
 import { wagmiConfig } from "@/src/configs";
-
-import "./globals.css";
 
 const queryClient = new QueryClient();
 
@@ -27,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
-            {children}
+            <Header />
+            <main className="flex-grow px-20">{children}</main>
+            <Footer />
           </QueryClientProvider>
         </WagmiProvider>
       </body>
