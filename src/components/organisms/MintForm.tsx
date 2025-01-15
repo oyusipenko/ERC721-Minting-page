@@ -62,7 +62,7 @@ export default function MintForm() {
     },
   });
 
-  const { handleSubmit, values } = formik;
+  const { handleSubmit } = formik;
 
   return (
     <>
