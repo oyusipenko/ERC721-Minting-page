@@ -32,7 +32,7 @@ export async function mintNftFeature(input: MintInput): Promise<MintResult> {
 
     const pinataUploadJsonResponse = await uploadJsonToPinata(metadata);
 
-    const tokenUri = `${IPFS_GATEWAY}/${pinataUploadJsonResponse.IpfsHash}`;
+    const tokenUri = `${pinataUploadJsonResponse.IpfsHash}`;
 
     const txHash = await mintNft(input.receiver as `0x${string}`, tokenUri);
 

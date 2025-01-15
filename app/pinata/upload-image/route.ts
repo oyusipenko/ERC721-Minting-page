@@ -21,10 +21,18 @@ export async function POST(request: Request) {
 
     const pinataEndpoint = "https://api.pinata.cloud/pinning/pinFileToIPFS";
 
+    const fileType = (image as Blob).type;
+    const fileExtension = fileType.split("/")[1];
     const pinataFormData = new FormData();
     pinataFormData.append(
       "file",
-      new File([buffer], "image.jpg", { type: "image/jpeg" }),
+      new File(
+        [buffer],
+        `${new Date().getTime().toString()}.${fileExtension}`,
+        {
+          type: fileType,
+        },
+      ),
     );
 
     const response = await fetch(pinataEndpoint, {
@@ -36,7 +44,7 @@ export async function POST(request: Request) {
     });
 
     const pinataResponse = (await response.json()) as IPinataResponse;
-    console.log("IPinataResponse: ", pinataResponse);
+
     if (!pinataResponse.IpfsHash) {
       throw new Error("Failed to pinata to Pinata");
     }
