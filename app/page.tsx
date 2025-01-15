@@ -1,5 +1,3 @@
-"use client";
-
 import { MintForm } from "@/src/components";
 
 export default function Home() {
