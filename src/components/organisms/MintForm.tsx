@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { useFormik } from "formik";
 import { mintNftFeature } from "@/src/features";
 import { UploadField, TextField } from "@/src/components";
 import { validationSchema } from "@/src/schemas";
+import { useModalContext } from "@/src/context";
 
 export interface MintFormValues {
   title: string;
@@ -15,6 +16,7 @@ export interface MintFormValues {
 
 export default function MintForm() {
   const { address } = useAccount();
+  const { openModal, closeModal } = useModalContext();
 
   const [submitResult, setSubmitResult] = useState<{
     success: boolean;
@@ -22,19 +24,9 @@ export default function MintForm() {
     txHash?: string;
   } | null>(null);
 
-  const formik = useFormik<MintFormValues>({
-    initialValues: {
-      title: "",
-      description: "",
-      imageFile: null as File | null,
-    },
-    validationSchema,
-    onSubmit: async (values) => {
+  const handleSubmit1 = useCallback(
+    async (values: MintFormValues) => {
       if (!address) {
-        setSubmitResult({
-          success: false,
-          message: "Please connect your wallet first.",
-        });
         return;
       }
 
@@ -59,6 +51,32 @@ export default function MintForm() {
           message: result.error || "Minting failed",
         });
       }
+      closeModal();
+    },
+    [address, closeModal],
+  );
+
+  const formik = useFormik<MintFormValues>({
+    initialValues: {
+      title: "",
+      description: "",
+      imageFile: null as File | null,
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      if (!address) {
+        setSubmitResult({
+          success: false,
+          message: "Please connect your wallet first.",
+        });
+        return;
+      }
+      openModal("CONFIRM", {
+        onConfirm: handleSubmit1.bind(null, values),
+        nftName: values.title,
+        nftDescription: values.description,
+        nftImage: values.imageFile,
+      });
     },
   });
 
@@ -87,12 +105,11 @@ export default function MintForm() {
         />
         <div className="flex justify-between space-x-2">
           <button
-            disabled={!address}
             type="submit"
             className={`flex-1 p-3
                          bg-gradient-to-r from-blue-500 to-pink-500
                          text-white rounded-md
-                         hover:opacity-90 transition-opacity ${!address ? "opacity-20" : ""}`}
+                         hover:opacity-90 transition-opacity `}
           >
             Mint
           </button>
