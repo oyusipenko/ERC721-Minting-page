@@ -19,7 +19,8 @@ export default function Sidebar({ isOpen }: SidebarProps) {
       `}
     >
       <div className="flex flex-col h-full">
-        <div className="flex justify-end p-4">
+        <div className="flex justify-between p-4">
+          <h1 className="prose-2xl">Connect Wallet</h1>
           <button
             onClick={toggleSidebar}
             className="bg-red-500 px-2 py-1 rounded"

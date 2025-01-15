@@ -23,9 +23,11 @@ export default function Profile() {
       <div className="space-y-2">
         <h2 className="text-2xl font-bold">Account</h2>
         <div className="bg-gray-800 p-4 rounded-md">
-          <p>status: {account.status}</p>
-          <p>addresses: {JSON.stringify(account.addresses)}</p>
-          <p>chainId: {account.chainId}</p>
+          <p className="prose-lg">status: {account.status}</p>
+          <p className="prose-lg">
+            addresses: {JSON.stringify(account.addresses)}
+          </p>
+          <p className="prose-lg">chainId: {account.chainId}</p>
         </div>
 
         {account.status === "connected" && (
