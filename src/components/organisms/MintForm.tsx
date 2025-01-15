@@ -87,25 +87,13 @@ export default function MintForm() {
         />
         <div className="flex justify-between space-x-2">
           <button
-            type="button"
-            onClick={() => {
-              console.log("Mint without listing clicked", values);
-            }}
-            className="flex-1 p-3
-                         bg-gray-700 text-white
-                         rounded-md hover:bg-gray-600
-                         transition-colors"
-          >
-            Mint without listing
-          </button>
-          <button
             type="submit"
             className="flex-1 p-3
                          bg-gradient-to-r from-blue-500 to-pink-500
                          text-white rounded-md
                          hover:opacity-90 transition-opacity"
           >
-            Mint and list immediately
+            Mint
           </button>
         </div>
       </form>
