@@ -87,11 +87,12 @@ export default function MintForm() {
         />
         <div className="flex justify-between space-x-2">
           <button
+            disabled={!address}
             type="submit"
-            className="flex-1 p-3
+            className={`flex-1 p-3
                          bg-gradient-to-r from-blue-500 to-pink-500
                          text-white rounded-md
-                         hover:opacity-90 transition-opacity"
+                         hover:opacity-90 transition-opacity ${!address ? "opacity-20" : ""}`}
           >
             Mint
           </button>
