@@ -1,26 +1,22 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { useUser } from "@/src/context";
 
 export default function Profile() {
   const account = useAccount();
   const { connectors, connect, error } = useConnect();
   const { disconnect } = useDisconnect();
 
-  const { user, setUser } = useUser();
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    if (account.status === "connected") {
-      setUser({
-        address: account.addresses[0],
-        chainId: account.chainId,
-      });
-    } else {
-      setUser(null);
-    }
-  }, [account.status, account.addresses, account.chainId]);
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return null;
+  }
 
   return (
     <div className="p-4 max-w-lg mx-auto space-y-8">
@@ -51,7 +47,7 @@ export default function Profile() {
             <div className="space-x-2">
               {connectors.map((connector) => (
                 <button
-                  key={connector.uid}
+                  key={connector.id}
                   onClick={() => connect({ connector })}
                   type="button"
                   className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition-colors"
