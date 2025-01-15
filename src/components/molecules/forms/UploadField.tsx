@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { FormikProps } from "formik";
 
@@ -79,6 +80,11 @@ export default function UploadField<T>({
             onChange={handleFileChange}
           />
         </label>
+      )}
+      {formik.errors[name as keyof T] && formik.touched[name as keyof T] && (
+        <div className="mt-2 text-red-500 text-sm">
+          {formik.errors[name as keyof T] as string}
+        </div>
       )}
     </div>
   );
