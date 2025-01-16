@@ -12,14 +12,6 @@ This project is a minting application for ERC721 NFTs, allowing users to connect
 - **Minting Functionality:** Users can mint NFTs by interacting with a deployed ERC721 smart contract on the Sepolia network.
 - **User Notifications:** Real-time notifications inform users about the success or failure of the minting process.
 
-## Demo
-
-![Minting Page Screenshot](path_to_screenshot.png)
-
-## Live Demo
-
-[Live Demo Link](https://your-live-demo-link.com)
-
 ## Technologies Used
 
 - **Frontend:**
