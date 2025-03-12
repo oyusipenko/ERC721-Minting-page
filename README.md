@@ -32,12 +32,9 @@ This project is a minting application for ERC721 NFTs, allowing users to connect
 ## Getting Started
 
 ### Prerequisites
-
-- **Node.js:** Ensure you have Node.js installed. You can download it [here](https://nodejs.org/).
 - **Wallet:** An Ethereum wallet (e.g., MetaMask) installed in your browser.
 
 ### Installation
-
 1. **Clone the Repository**
 2. npm i
 3. npm run dev
